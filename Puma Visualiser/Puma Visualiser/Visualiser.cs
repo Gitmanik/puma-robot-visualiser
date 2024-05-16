@@ -1,73 +1,35 @@
-﻿using Puma_Visualiser;
+﻿using Puma_Visualiser.Views;
 using Raylib_CsLo;
 
-public static class Visualiser
+namespace Puma_Visualiser
 {
-	private enum AppState
+	public static class Visualiser
 	{
-		INTRO,
-		PROGRAM
-	}
+		private static IView? CurrentView;
 
-	private static AppState _state = AppState.INTRO;
-
-	private static int RightPanelStart;
-
-	private static List<TextBox> _textBoxes = new List<TextBox>();
-
-	public static async Task Main(string[] args)
-	{
-		Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-		Raylib.InitWindow(1280, 720, "PUMA Robot Visualiser");
-		Raylib.SetTargetFPS(60);
-
-		RightPanelStart = Raylib.GetScreenWidth() - 250;
-		_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart, 10, 230, 30), 20));
-
-		while (!Raylib.WindowShouldClose())
+		public static async Task Main(string[] args)
 		{
-			Raylib.BeginDrawing();
+			//Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+			Raylib.InitWindow(1280, 720, "PUMA Robot Visualiser");
+			Raylib.SetTargetFPS(60);
 
-			switch (_state)
+			CurrentView = new IntroView();
+
+			while (!Raylib.WindowShouldClose())
 			{
-				case AppState.INTRO:
-					DrawIntro();
-					break;
+				Raylib.BeginDrawing();
 
-				case AppState.PROGRAM:
-					RunApp();
-					break;
+				CurrentView.Draw();
 
-				default:
-					throw new NotImplementedException("Unsupported AppState!");
+				Raylib.EndDrawing();
 			}
-			Raylib.EndDrawing();
+			Raylib.CloseWindow();
 		}
-		Raylib.CloseWindow();
-	}
 
-	private static void DrawIntro()
-	{
-		Raylib.ClearBackground(Raylib.LIGHTGRAY);
-		Raylib.DrawText("PUMA Robot Visualiser", 640 - Raylib.MeasureText("PUMA Robot Visualiser", 50) / 2, 360 - 25, 50, Raylib.RED);
-
-		if (Raylib.GetTime() > 1)
+		public static void ChangeView(IView newView)
 		{
-			_state = AppState.PROGRAM;
+			Console.WriteLine($"View changed to {newView}");
+			CurrentView = newView;
 		}
-	}
-
-	private static bool test = false;
-
-	private static void RunApp()
-	{
-		Raylib.ClearBackground(Raylib.LIGHTGRAY);
-
-		test = RayGui.GuiCheckBox(new Rectangle(10, 10, 20, 20), "test ok?", test);
-
-		Raylib.DrawLine(RightPanelStart, 0, RightPanelStart, Raylib.GetScreenHeight(), Raylib.BLACK);
-
-		foreach (var item in _textBoxes)
-			item.Tick();
 	}
 }

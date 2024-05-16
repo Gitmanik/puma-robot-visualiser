@@ -1,4 +1,5 @@
-﻿using Raylib_CsLo;
+﻿using Puma_Visualiser;
+using Raylib_CsLo;
 
 public static class Visualiser
 {
@@ -10,11 +11,18 @@ public static class Visualiser
 
 	private static AppState _state = AppState.INTRO;
 
+	private static int RightPanelStart;
+
+	private static List<TextBox> _textBoxes = new List<TextBox>();
+
 	public static async Task Main(string[] args)
 	{
 		Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 		Raylib.InitWindow(1280, 720, "PUMA Robot Visualiser");
 		Raylib.SetTargetFPS(60);
+
+		RightPanelStart = Raylib.GetScreenWidth() - 250;
+		_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart, 10, 230, 30), 20));
 
 		while (!Raylib.WindowShouldClose())
 		{
@@ -50,33 +58,16 @@ public static class Visualiser
 	}
 
 	private static bool test = false;
-	private static string x = "";
 
 	private static void RunApp()
 	{
 		Raylib.ClearBackground(Raylib.LIGHTGRAY);
-		test = RayGui.GuiCheckBox(new Rectangle(10, 10, 20, 20), "test ok?", test);
 
-		int RightPanelStart = Raylib.GetScreenWidth() - 250;
+		test = RayGui.GuiCheckBox(new Rectangle(10, 10, 20, 20), "test ok?", test);
 
 		Raylib.DrawLine(RightPanelStart, 0, RightPanelStart, Raylib.GetScreenHeight(), Raylib.BLACK);
 
-		char cha = (char)Raylib.GetCharPressed();
-		int key = Raylib.GetKeyPressed();
-		if (cha != 0)
-		{
-			Console.WriteLine($"Char Pressed : {cha}");
-			x += cha;
-		}
-		else if (key != 0)
-		{
-			Console.WriteLine($"Pressed : {key}");
-			if (key == 259)
-			{
-				x = x.Remove(x.Length - 1);
-			}
-		}
-
-		RayGui.GuiTextBox(new Rectangle(RightPanelStart, 10, 230, 30), x, 20, true);
+		foreach (var item in _textBoxes)
+			item.Tick();
 	}
 }

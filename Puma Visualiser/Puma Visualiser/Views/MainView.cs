@@ -22,12 +22,11 @@ namespace Puma_Visualiser.Views
 			Raylib.ClearBackground(Raylib.LIGHTGRAY);
 			test = RayGui.GuiCheckBox(new Rectangle(10, 10, 20, 20), "test ok?", test);
 
+			Raylib.DrawRectangle(RightPanelStart, 0, 250, Raylib.GetScreenHeight(), Raylib.WHITE);
+
 			Raylib.DrawText("X", RightPanelStart + 10, 10 + 5, 20, Raylib.BLACK);
 			Raylib.DrawText("Y", RightPanelStart + 10, 50 + 5, 20, Raylib.BLACK);
 			Raylib.DrawText("Z", RightPanelStart + 10, 90 + 5, 20, Raylib.BLACK);
-
-
-			Raylib.DrawLine(RightPanelStart, 0, RightPanelStart, Raylib.GetScreenHeight(), Raylib.BLACK);
 
 			foreach (var item in _textBoxes)
 				item.Tick();

@@ -1,13 +1,14 @@
-﻿using Raylib_CsLo;
+﻿using Puma_Visualiser.GuiElements;
+using Raylib_CsLo;
 
 namespace Puma_Visualiser.Views
 {
-	internal class MainView : IView
+    internal class MainView : IView
 	{
 		private bool test = false;
 
-		private int RightPanelStart => Raylib.GetScreenWidth() - 250;
-
+		private int RightPanelStart = -250;
+ 
 		private List<TextBox> _textBoxes = new List<TextBox>();
 
 		public MainView()
@@ -29,7 +30,7 @@ namespace Puma_Visualiser.Views
 			Raylib.DrawText("Z", RightPanelStart + 10, 90 + 5, 20, Raylib.BLACK);
 
 			foreach (var item in _textBoxes)
-				item.Tick();
+				item.Draw();
 		}
 	}
 }

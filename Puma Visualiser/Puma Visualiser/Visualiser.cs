@@ -9,7 +9,7 @@ namespace Puma_Visualiser
 
 		public static async Task Main(string[] args)
 		{
-			//Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+			Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 			Raylib.InitWindow(1280, 720, "PUMA Robot Visualiser");
 			Raylib.SetTargetFPS(60);
 

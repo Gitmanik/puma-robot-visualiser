@@ -7,10 +7,12 @@ namespace Puma_Visualiser
 	{
 		private static IView? CurrentView;
 
+		public static readonly System.Drawing.Size windowSize = new(1280, 720);
+
 		public static async Task Main(string[] args)
 		{
 			Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-			Raylib.InitWindow(1280, 720, "PUMA Robot Visualiser");
+			Raylib.InitWindow(windowSize.Width, windowSize.Height, "PUMA Robot Visualiser");
 			Raylib.SetTargetFPS(60);
 
 			CurrentView = new IntroView();

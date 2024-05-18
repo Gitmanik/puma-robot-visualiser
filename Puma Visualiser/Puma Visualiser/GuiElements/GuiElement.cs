@@ -25,6 +25,18 @@ namespace Puma_Visualiser.GuiElements
 		{
 			_bounds = _relativeBounds;
 
+			/* SCALING BASED ON BASE WIDTH AND HEIGHT */
+			//_bounds.x = _bounds.x * ((float) Raylib.GetScreenWidth() / Visualiser.windowSize.Width);
+			//_bounds.y = _bounds.y * ((float) Raylib.GetScreenHeight() / Visualiser.windowSize.Height);
+			//_bounds.width = _bounds.width * ((float)Raylib.GetScreenWidth() / Visualiser.windowSize.Width);
+			//_bounds.height = _bounds.height * ((float) Raylib.GetScreenHeight() / Visualiser.windowSize.Height);
+
+
+			/* DPI SCALING */
+			//_bounds.X = _bounds.X * Raylib.GetWindowScaleDPI().X;
+			//_bounds.Y = _bounds.Y * Raylib.GetWindowScaleDPI().Y;
+			//_bounds.width = _bounds.width * Raylib.GetWindowScaleDPI().X;
+			//_bounds.height = _bounds.height * Raylib.GetWindowScaleDPI().Y;
 
 			if (_relativeBounds.x < 0)
 			{

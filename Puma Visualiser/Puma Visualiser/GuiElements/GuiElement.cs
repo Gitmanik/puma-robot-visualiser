@@ -13,7 +13,7 @@ namespace Puma_Visualiser.GuiElements
 			CalculateBounds();
 		}
 
-		public void Draw()
+		public virtual void Draw()
 		{
 			if (Raylib.IsWindowResized())
 			{
@@ -24,6 +24,7 @@ namespace Puma_Visualiser.GuiElements
 		private void CalculateBounds()
 		{
 			_bounds = _relativeBounds;
+
 
 			if (_relativeBounds.x < 0)
 			{

@@ -14,7 +14,7 @@ namespace Puma_Visualiser.GuiElements
             _textSize = textSize;
         }
 
-		public new void Draw()
+		public override void Draw()
         {
             base.Draw();
 

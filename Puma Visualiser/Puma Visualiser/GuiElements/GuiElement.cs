@@ -47,6 +47,16 @@ namespace Puma_Visualiser.GuiElements
 			{
 				_bounds.y = Raylib.GetScreenHeight() + _relativeBounds.y;
 			}
+			
+			if (_relativeBounds.width < 0)
+			{
+				_bounds.width = Raylib.GetScreenWidth() + _relativeBounds.width;
+			}
+
+			if (_relativeBounds.height < 0)
+			{
+				_bounds.height = Raylib.GetScreenHeight() + _relativeBounds.height;
+			}
 
 			Console.WriteLine($"Recalculated bounds for {this}: {_relativeBounds.x} {_relativeBounds.y} -> {_bounds.x} {_bounds.y}");
 		}

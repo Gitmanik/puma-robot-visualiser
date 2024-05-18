@@ -12,8 +12,11 @@ namespace Puma_Visualiser.Views
  
 		private List<GuiElement> _textBoxes = new List<GuiElement>();
 
+		private Timeline _timeline;
+
 		public MainView()
 		{
+			_timeline = new Timeline(new Rectangle(0, -250, -250, 250));
 			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 10, 200, 30), 20));
 			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 50, 200, 30), 20));
 			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 90, 200, 30), 20));
@@ -34,6 +37,8 @@ namespace Puma_Visualiser.Views
 
 			foreach (var item in _textBoxes)
 				item.Draw();
+			
+			_timeline.Draw();
 		}
 	}
 }

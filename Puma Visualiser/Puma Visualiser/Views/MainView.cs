@@ -8,18 +8,21 @@ namespace Puma_Visualiser.Views
 		private bool test = false;
 
 		private int RightPanelStart = -250;
+		private int RightPanelInputStartY = 100;
  
 		private List<GuiElement> _textBoxes = new List<GuiElement>();
 
 		public MainView()
 		{
-			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, 10, 200, 30), 20));
-			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, 50, 200, 30), 20));
-			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, 90, 200, 30), 20));
+			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 10, 200, 30), 20));
+			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 50, 200, 30), 20));
+			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 90, 200, 30), 20));
+			_textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 130, 200, 30), 20));
 
-			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, 10 + 5, 0, 0), "X", 20, Raylib.BLACK));
-			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, 50 + 5, 0, 0), "Y", 20, Raylib.BLACK));
-			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, 90 + 5, 0, 0), "Z", 20, Raylib.BLACK));
+			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, RightPanelInputStartY + 10 + 5, 0, 0), "X", 20, Raylib.BLACK));
+			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, RightPanelInputStartY + 50 + 5, 0, 0), "Y", 20, Raylib.BLACK));
+			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, RightPanelInputStartY + 90 + 5, 0, 0), "Z", 20, Raylib.BLACK));
+			_textBoxes.Add(new Label(new Rectangle(RightPanelStart + 10, RightPanelInputStartY + 130 + 5, 0, 0), "t", 20, Raylib.BLACK));
 		}
 
 		public void Draw()

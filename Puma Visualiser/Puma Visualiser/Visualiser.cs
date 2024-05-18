@@ -5,23 +5,22 @@ namespace Puma_Visualiser
 {
 	public static class Visualiser
 	{
-		private static IView? CurrentView;
-
-		public static readonly System.Drawing.Size windowSize = new(1280, 720);
+		public static readonly System.Drawing.Size WindowSize = new(1280, 720);
+		private static IView? _currentView;
 
 		public static async Task Main(string[] args)
 		{
 			Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-			Raylib.InitWindow(windowSize.Width, windowSize.Height, "PUMA Robot Visualiser");
+			Raylib.InitWindow(WindowSize.Width, WindowSize.Height, "PUMA Robot Visualiser");
 			Raylib.SetTargetFPS(60);
 
-			CurrentView = new IntroView();
+			_currentView = new IntroView();
 
 			while (!Raylib.WindowShouldClose())
 			{
 				Raylib.BeginDrawing();
 
-				CurrentView.Draw();
+				_currentView.Draw();
 
 				Raylib.EndDrawing();
 			}
@@ -31,7 +30,7 @@ namespace Puma_Visualiser
 		public static void ChangeView(IView newView)
 		{
 			Console.WriteLine($"View changed to {newView}");
-			CurrentView = newView;
+			_currentView = newView;
 		}
 	}
 }

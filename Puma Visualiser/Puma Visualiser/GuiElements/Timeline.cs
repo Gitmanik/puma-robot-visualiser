@@ -25,6 +25,7 @@ public class Timeline : GuiElement
 
     public override void Draw()
     {
+        base.Draw();
         Raylib.DrawRectangle(0, (int)_bounds.y, (int)_bounds.width, (int)_bounds.height, Raylib.WHITE);
 
         float xx = (_bounds.height - 2 * _margin) / 3;
@@ -53,7 +54,7 @@ public class Timeline : GuiElement
                 if (mouse.X > _bounds.X + _margin && mouse.X < _bounds.width - _margin &&
                     mouse.Y > y - _trackButtonClickMargin && mouse.Y < y + _trackButtonClickMargin)
                 {
-                    Console.WriteLine($"C on track {idx}, x:{mouse.X}");
+                    Console.WriteLine($"Click on track {idx}, x:{mouse.X}");
                     trackButtons[idx - 1].Add(new Button(new Rectangle(mouse.X - 5, y - 5, 10, 10), ""));
                     Console.WriteLine(trackButtons[idx - 1].Count);
                 }

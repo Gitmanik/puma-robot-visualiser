@@ -12,8 +12,6 @@ public static class Visualiser
     {
         Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
         Raylib.InitWindow(WindowSize.Width, WindowSize.Height, "PUMA Robot Visualiser");
-        // TODO: Maybe remove?
-        //RayGui.GuiLoadStyle("style_cyber.rgs");
         Raylib.SetTargetFPS(60);
 
         _currentView = new IntroView();

@@ -21,8 +21,8 @@ public class TextBox : GuiElement
         if (Raylib.IsMouseButtonReleased(Raylib.MOUSE_LEFT_BUTTON))
         {
             var mouse = Raylib.GetMousePosition();
-            if (mouse.X > _bounds.X && mouse.X < _bounds.X + _bounds.width &&
-                mouse.Y > _bounds.Y && mouse.Y < _bounds.Y + _bounds.height)
+            if (mouse.X > Bounds.X && mouse.X < Bounds.X + Bounds.width &&
+                mouse.Y > Bounds.Y && mouse.Y < Bounds.Y + Bounds.height)
                 _active = true;
             else
                 _active = false;
@@ -45,6 +45,6 @@ public class TextBox : GuiElement
             }
         }
 
-        RayGui.GuiTextBox(_bounds, _text, _textSize, _active);
+        RayGui.GuiTextBox(Bounds, _text, _textSize, _active);
     }
 }

@@ -7,7 +7,7 @@ public class Button : GuiElement
     private string _text;
     private bool _state;
 
-    public Button(Rectangle _bounds, string text) : base(_bounds)
+    public Button(Rectangle bounds, string text) : base(bounds)
     {
         _text = text;
     }
@@ -15,7 +15,7 @@ public class Button : GuiElement
     public override void Draw()
     {
         base.Draw();
-        _state = RayGui.GuiButton(_bounds, _text);
+        _state = RayGui.GuiButton(Bounds, _text);
     }
 
     public bool IsClicked() => _state;

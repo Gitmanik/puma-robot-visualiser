@@ -11,10 +11,15 @@ internal class MainView : IView
     private List<GuiElement> _textBoxes = new List<GuiElement>();
 
     private Timeline _timeline;
-
+    
+    private float _time;
+    private float _timeEnd = 5;
+    private float _timeStart = 0;
+    private float _timeScale = 1;
+    
     public MainView()
     {
-        _timeline = new Timeline(new Rectangle(0, -250, -250, 250));
+        _timeline = new Timeline(new Rectangle(0, -250, -250, 250), Raylib.GRAY, Raylib.LIGHTGRAY, Raylib.GRAY, Raylib.RED, 10, 10);
         _textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 10, 200, 30), 20));
         _textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 50, 200, 30), 20));
         _textBoxes.Add(new TextBox(new Rectangle(RightPanelStart + 40, RightPanelInputStartY + 90, 200, 30), 20));
@@ -34,11 +39,16 @@ internal class MainView : IView
     {
         Raylib.ClearBackground(Raylib.LIGHTGRAY);
 
-        Raylib.DrawRectangle(Raylib.GetScreenWidth() + RightPanelStart, 0, 250, Raylib.GetScreenHeight(), Raylib.WHITE);
+        Raylib.DrawRectangle(Raylib.GetScreenWidth() + RightPanelStart, 0, 250, Raylib.GetScreenHeight(), Raylib.GRAY);
 
         foreach (var item in _textBoxes)
             item.Draw();
-
+        
+        // Time
+        _timeline.SetTimeData(_time, _timeStart, _timeEnd);
         _timeline.Draw();
+        
+        _time += Raylib.GetFrameTime();
+        if (_time > _timeEnd) _time = _timeStart;
     }
 }

@@ -18,6 +18,6 @@ public class Label : GuiElement
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText(_text, _bounds.x, _bounds.y, _fontSize, _color);
+        Raylib.DrawText(_text, Bounds.x, Bounds.y, _fontSize, _color);
     }
 }

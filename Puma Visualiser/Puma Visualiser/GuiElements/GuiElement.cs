@@ -4,12 +4,12 @@ namespace Puma_Visualiser.GuiElements;
 
 public abstract class GuiElement
 {
-    protected Rectangle _bounds;
+    protected Rectangle Bounds;
     private Rectangle _relativeBounds;
 
-    public GuiElement(Rectangle _bounds)
+    public GuiElement(Rectangle bounds)
     {
-        _relativeBounds = _bounds;
+        _relativeBounds = bounds;
         CalculateBounds();
     }
 
@@ -23,7 +23,7 @@ public abstract class GuiElement
 
     private void CalculateBounds()
     {
-        _bounds = _relativeBounds;
+        Bounds = _relativeBounds;
 
         /* SCALING BASED ON BASE WIDTH AND HEIGHT */
         //_bounds.x = _bounds.x * ((float) Raylib.GetScreenWidth() / Visualiser.windowSize.Width);
@@ -40,25 +40,25 @@ public abstract class GuiElement
 
         if (_relativeBounds.x < 0)
         {
-            _bounds.x = Raylib.GetScreenWidth() + _relativeBounds.x;
+            Bounds.x = Raylib.GetScreenWidth() + _relativeBounds.x;
         }
 
         if (_relativeBounds.y < 0)
         {
-            _bounds.y = Raylib.GetScreenHeight() + _relativeBounds.y;
+            Bounds.y = Raylib.GetScreenHeight() + _relativeBounds.y;
         }
 
         if (_relativeBounds.width < 0)
         {
-            _bounds.width = Raylib.GetScreenWidth() + _relativeBounds.width;
+            Bounds.width = Raylib.GetScreenWidth() + _relativeBounds.width;
         }
 
         if (_relativeBounds.height < 0)
         {
-            _bounds.height = Raylib.GetScreenHeight() + _relativeBounds.height;
+            Bounds.height = Raylib.GetScreenHeight() + _relativeBounds.height;
         }
 
         Console.WriteLine(
-            $"Recalculated bounds for {this}: {_relativeBounds.x} {_relativeBounds.y} -> {_bounds.x} {_bounds.y}");
+            $"Recalculated bounds for {this}: {_relativeBounds.x} {_relativeBounds.y} -> {Bounds.x} {Bounds.y}");
     }
 }

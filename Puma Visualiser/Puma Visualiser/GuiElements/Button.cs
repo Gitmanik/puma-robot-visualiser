@@ -6,6 +6,7 @@ public class Button : GuiElement
 {
     private string _text;
     private bool _state;
+
     public Button(Rectangle _bounds, string text) : base(_bounds)
     {
         _text = text;

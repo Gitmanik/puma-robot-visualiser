@@ -1,7 +1,6 @@
-﻿namespace Puma_Visualiser.Views
+﻿namespace Puma_Visualiser.Views;
+
+public interface IView
 {
-	public interface IView
-	{
-		public abstract void Draw();
-	}
+    public abstract void Draw();
 }

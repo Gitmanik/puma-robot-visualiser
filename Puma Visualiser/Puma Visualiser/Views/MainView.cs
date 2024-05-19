@@ -5,8 +5,6 @@ namespace Puma_Visualiser.Views
 {
     internal class MainView : IView
 	{
-		private bool test = false;
-
 		private int RightPanelStart = -250;
 		private int RightPanelInputStartY = 100;
  
@@ -31,7 +29,6 @@ namespace Puma_Visualiser.Views
 		public void Draw()
 		{
 			Raylib.ClearBackground(Raylib.LIGHTGRAY);
-			test = RayGui.GuiCheckBox(new Rectangle(10, 10, 20, 20), "test ok?", test);
 
 			Raylib.DrawRectangle(Raylib.GetScreenWidth() + RightPanelStart, 0, 250, Raylib.GetScreenHeight(), Raylib.WHITE);
 

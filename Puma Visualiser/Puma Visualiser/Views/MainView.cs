@@ -65,7 +65,7 @@ internal class MainView : IView
         _timeline.SetTimeData(_time, _timeStart, _timeEnd);
         _timeline.Draw();
 
-        _time += Raylib.GetFrameTime();
+        _time += Raylib.GetFrameTime() * _timeScale;
         if (_time > _timeEnd) _time = _timeStart;
     }
 }

@@ -1,3 +1,4 @@
+using Puma_Visualiser.Objects;
 using Raylib_CsLo;
 
 namespace Puma_Visualiser.GuiElements;
@@ -11,11 +12,13 @@ public class Timeline : GuiElement
     private readonly Color _playheadColor;
     private readonly Color _trackBackgroundColor;
 
+    private readonly float _timestampSize = 15;
+
     private float _time;
     private float _timeStart;
     private float _timeEnd;
 
-    private Dictionary<int, List<Button>> _trackButtons = new();
+    private readonly List<Timestamp> _timestamps = new();
 
     public Timeline(Rectangle bounds, Color backgroundColor, Color trackBackgroundColor, Color trackColor,
         Color playheadColor, int margin, int trackButtonClickMargin) : base(bounds)
@@ -26,9 +29,6 @@ public class Timeline : GuiElement
         _playheadColor = playheadColor;
         _margin = margin;
         _trackButtonClickMargin = trackButtonClickMargin;
-
-        for (int idx = 0; idx < 3; idx++)
-            _trackButtons[idx] = new List<Button>();
     }
 
     public override void Draw()
@@ -36,50 +36,67 @@ public class Timeline : GuiElement
         base.Draw();
         Raylib.DrawRectangle(0, (int)Bounds.y, (int)Bounds.width, (int)Bounds.height, _backgroundColor);
 
-        float xx = (Bounds.height - 2 * _margin) / 3;
-
         Raylib.DrawRectangle((int)Bounds.x + _margin, (int)Bounds.y + _margin, (int)Bounds.width - 2 * _margin,
             (int)Bounds.height - 2 * _margin, _trackBackgroundColor);
 
         // Draw track lines
-        for (int idx = 1; idx <= 3; idx++)
+        for (int trackNumber = 1; trackNumber <= 3; trackNumber++)
         {
-            int y = (int)(Bounds.y + _margin + idx * xx - .5 * xx);
-            Raylib.DrawLine((int)Bounds.x + _margin, y, (int)Bounds.width - _margin, y, _trackColor);
+            int y = CalculateTrackY(trackNumber);
+            Raylib.DrawLine((int)Bounds.x + _margin, y, (int) Bounds.x + (int)Bounds.width - _margin, y, _trackColor);
         }
 
         // Draw track points
-        // TODO: Register which button was clicked and act
-        bool trackButtonClicked = false;
-        for (int idx = 0; idx < _trackButtons.Count; idx++)
-            foreach (var button in _trackButtons[idx])
+        Timestamp? timestampClicked = null;
+        foreach (var timestamp in _timestamps)
+        {
+            int timestampX = TimeToX(timestamp.Time);
+            int timestampY = CalculateTrackY(timestamp.TrackNumber);
+            
+            bool val = RayGui.GuiButton(new Rectangle(timestampX - _timestampSize/2, timestampY - _timestampSize/2, _timestampSize, _timestampSize), "");
+            if (val)
             {
-                button.Draw();
-                if (button.IsClicked())
-                    trackButtonClicked = true;
+                Console.WriteLine($"{timestamp} clicked!");
+                timestampClicked = timestamp;
             }
+        }
 
         // Add new track points
-        if (!trackButtonClicked && Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT))
+        if (timestampClicked == null && Raylib.IsMouseButtonReleased(MouseButton.MOUSE_BUTTON_LEFT))
         {
             for (int idx = 1; idx <= 3; idx++)
             {
-                int y = (int)(Bounds.y + _margin + idx * xx - .5 * xx);
+                int y = CalculateTrackY(idx);
                 var mouse = Raylib.GetMousePosition();
+                
                 if (mouse.X > Bounds.X + _margin && mouse.X < Bounds.width - _margin &&
                     mouse.Y > y - _trackButtonClickMargin && mouse.Y < y + _trackButtonClickMargin)
                 {
-                    Console.WriteLine($"Click on track {idx}, x:{mouse.X}");
-                    _trackButtons[idx - 1].Add(new Button(new Rectangle(mouse.X - 5, y - 5, 10, 10), ""));
-                    Console.WriteLine(_trackButtons[idx - 1].Count);
+                   _timestamps.Add(new Timestamp(XToTime(mouse.X), idx, 0)); // TODO: Insert current value here
                 }
             }
         }
 
         // Draw playhead
-        int timeX = (int)Map(_time, _timeStart, _timeEnd, Bounds.x + _margin, Bounds.x + Bounds.width - _margin);
-        Raylib.DrawLine(timeX, (int)Bounds.Y + _margin, timeX,
+        Raylib.DrawLine(TimeToX(_time), (int)Bounds.Y + _margin, TimeToX(_time),
             (int)Bounds.y + (int)Bounds.height - _margin, _playheadColor);
+    }
+
+    private int TimeToX(float time)
+    {
+        return (int)Map(time, _timeStart, _timeEnd,Bounds.x + _margin, Bounds.x + Bounds.width - _margin);
+    }
+
+    private float XToTime(float x)
+    {
+        float rescaledX = x - Bounds.X - _margin;
+        return Map(rescaledX , 0, Bounds.width - 2* _margin, _timeStart, _timeEnd);
+    }
+    
+    private int CalculateTrackY(int trackNumber)
+    {
+        float trackYdistance = (Bounds.height - 2 * _margin) / 3;
+        return (int) (Bounds.y + _margin + trackNumber * trackYdistance - .5 * trackYdistance);
     }
 
     public void SetTimeData(float time, float timeStart, float timeEnd)

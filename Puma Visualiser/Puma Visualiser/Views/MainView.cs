@@ -40,6 +40,7 @@ internal class MainView : IView
         _textBoxes.Add(new TextBox(
             new Rectangle(RightPanelStart + margin + 40, RightPanelInputStartY + 130, 200 - 2 * margin, 30), 20));
 
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY - 40, -RightPanelInputStartY, 40), "Current", 40, Raylib.BLACK));
         _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 10 + 5, 0, 0),
             "X", 20,
             Raylib.BLACK));
@@ -53,6 +54,29 @@ internal class MainView : IView
             "t", 20,
             Raylib.BLACK));
 
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY +130+20+40, -RightPanelInputStartY, 40), "Timestamp", 40, Raylib.BLACK));
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 10 + 5+130+20+40+40, 0, 0),
+            "X", 20,
+            Raylib.BLACK));
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 50 + 5+130+20+40+40, 0, 0),
+            "Y", 20,
+            Raylib.BLACK));
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 90 + 5+130+20+40+40, 0, 0),
+            "Z", 20,
+            Raylib.BLACK));
+        _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 130 + 5+130+20+40+40, 0, 0),
+            "t", 20,
+            Raylib.BLACK));
+        
+        _textBoxes.Add(new TextBox(
+            new Rectangle(RightPanelStart + margin + 40, RightPanelInputStartY + 10+130+20+40+40, 200 - 2 * margin, 30), 20));
+        _textBoxes.Add(new TextBox(
+            new Rectangle(RightPanelStart + margin + 40, RightPanelInputStartY + 50+130+20+40+40, 200 - 2 * margin, 30), 20));
+        _textBoxes.Add(new TextBox(
+            new Rectangle(RightPanelStart + margin + 40, RightPanelInputStartY + 90+130+20+40+40, 200 - 2 * margin, 30), 20));
+        _textBoxes.Add(new TextBox(
+            new Rectangle(RightPanelStart + margin + 40, RightPanelInputStartY + 130+130+20+40+40, 200 - 2 * margin, 30), 20));
+        
         _startButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40-10-40, -RightPanelStart - 3 * margin - 10, 40), "START");
         _stopButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40, -RightPanelStart - 3 * margin - 10, 40), "STOP");
         

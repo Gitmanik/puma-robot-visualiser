@@ -6,6 +6,8 @@ internal class IntroView : IView
 {
     public void Draw()
     {
+        Raylib.BeginDrawing();
+            
         Raylib.ClearBackground(Raylib.LIGHTGRAY);
         Raylib.DrawText("PUMA Robot Visualiser", 640 - Raylib.MeasureText("PUMA Robot Visualiser", 50) / 2, 360 - 25,
             50, Raylib.RED);
@@ -14,5 +16,7 @@ internal class IntroView : IView
         {
             Visualiser.ChangeView(new MainView());
         }
+        
+        Raylib.EndDrawing();
     }
 }

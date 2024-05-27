@@ -18,11 +18,7 @@ public static class Visualiser
 
         while (!Raylib.WindowShouldClose())
         {
-            Raylib.BeginDrawing();
-
             _currentView.Draw();
-
-            Raylib.EndDrawing();
         }
 
         Raylib.CloseWindow();

@@ -47,6 +47,7 @@ internal class MainView : IView
 
     public void Draw()
     {
+        Raylib.BeginDrawing();
         //TODO: Instead draw Raylib.GREY
         Raylib.ClearBackground(Raylib.LIGHTGRAY);
         Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth() + RightPanelStart, Raylib.GetScreenHeight() - 250,
@@ -67,5 +68,6 @@ internal class MainView : IView
 
         _time += Raylib.GetFrameTime() * _timeScale;
         if (_time > _timeEnd) _time = _timeStart;
+        Raylib.EndDrawing();
     }
 }

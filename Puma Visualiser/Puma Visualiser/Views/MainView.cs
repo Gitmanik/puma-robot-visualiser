@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Globalization;
 using System.Numerics;
 using Puma_Visualiser.GuiElements;
 using Raylib_CsLo;
@@ -15,6 +16,7 @@ internal class MainView : IView
 
     private Button _startButton;
     private Button _stopButton;
+    private Slider _timeSlider;
 
     private Timeline _timeline;
 
@@ -25,6 +27,7 @@ internal class MainView : IView
     private float _timeEnd = 5;
     private float _timeStart = 0;
     private float _timeScale = 1;
+    private float _minTimeScale = 0, _maxTimeScale = 5;
     private bool _timeStopped = false;
 
     public MainView()
@@ -79,6 +82,10 @@ internal class MainView : IView
         
         _startButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40-10-40, -RightPanelStart - 3 * margin - 10, 40), "START");
         _stopButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40, -RightPanelStart - 3 * margin - 10, 40), "STOP");
+        _timeSlider = new Slider(
+            new Rectangle(RightPanelStart + margin + 10, -10 - margin - 40 - 40 - 30 - 10,
+                -RightPanelStart - 3 * margin - 10, 20), _minTimeScale.ToString(CultureInfo.InvariantCulture),
+            _maxTimeScale.ToString(CultureInfo.InvariantCulture), _minTimeScale, _maxTimeScale, _timeScale, 20);
         
         InitializeRobot();
     }
@@ -133,6 +140,10 @@ internal class MainView : IView
         if (_time > _timeEnd) _time = _timeStart;
 
         Raylib.DrawTexture(robotTexture.Value.texture, margin, margin, Raylib.WHITE);
+        
+        _timeSlider.Draw();
+        _timeScale = _timeSlider.GetValue();
+        
         Raylib.EndDrawing();
     }
 

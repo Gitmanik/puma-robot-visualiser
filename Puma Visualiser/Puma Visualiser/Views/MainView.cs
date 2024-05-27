@@ -13,6 +13,9 @@ internal class MainView : IView
 
     private List<GuiElement> _textBoxes = new List<GuiElement>();
 
+    private Button _startButton;
+    private Button _stopButton;
+
     private Timeline _timeline;
 
     private RenderTexture? robotTexture;
@@ -22,6 +25,7 @@ internal class MainView : IView
     private float _timeEnd = 5;
     private float _timeStart = 0;
     private float _timeScale = 1;
+    private bool _timeStopped = false;
 
     public MainView()
     {
@@ -49,6 +53,9 @@ internal class MainView : IView
             "t", 20,
             Raylib.BLACK));
 
+        _startButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40-10-40, -RightPanelStart - 3 * margin - 10, 40), "START");
+        _stopButton = new Button(new Rectangle(RightPanelStart + margin + 10, -10-margin-40, -RightPanelStart - 3 * margin - 10, 40), "STOP");
+        
         InitializeRobot();
     }
 
@@ -88,8 +95,17 @@ internal class MainView : IView
         // Time
         _timeline.SetTimeData(_time, _timeStart, _timeEnd);
         _timeline.Draw();
+        
+        _startButton.Draw();
+        _stopButton.Draw();
 
-        _time += Raylib.GetFrameTime() * _timeScale;
+        if (_startButton.IsClicked())
+            _timeStopped = false;
+        if (_stopButton.IsClicked())
+            _timeStopped = true;
+
+        if (!_timeStopped)
+            _time += Raylib.GetFrameTime() * _timeScale;
         if (_time > _timeEnd) _time = _timeStart;
 
         Raylib.DrawTexture(robotTexture.Value.texture, margin, margin, Raylib.WHITE);

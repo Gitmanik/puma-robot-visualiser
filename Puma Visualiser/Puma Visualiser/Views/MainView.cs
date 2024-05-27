@@ -1,4 +1,6 @@
-﻿using Puma_Visualiser.GuiElements;
+﻿using System.Diagnostics;
+using System.Numerics;
+using Puma_Visualiser.GuiElements;
 using Raylib_CsLo;
 
 namespace Puma_Visualiser.Views;
@@ -12,6 +14,9 @@ internal class MainView : IView
     private List<GuiElement> _textBoxes = new List<GuiElement>();
 
     private Timeline _timeline;
+
+    private RenderTexture? robotTexture;
+    private Camera3D robotCamera;
 
     private float _time;
     private float _timeEnd = 5;
@@ -43,17 +48,35 @@ internal class MainView : IView
         _textBoxes.Add(new Label(new Rectangle(RightPanelStart + margin + 10, RightPanelInputStartY + 130 + 5, 0, 0),
             "t", 20,
             Raylib.BLACK));
+
+        InitializeRobot();
     }
 
     public void Draw()
     {
-        Raylib.BeginDrawing();
-        //TODO: Instead draw Raylib.GREY
+        if (Raylib.IsWindowResized())
+            InitializeRobot();
+        Debug.Assert(robotTexture != null, nameof(robotTexture) + " != null");
+
+        // 3D DRAWING
+
+        Raylib.BeginTextureMode(robotTexture.Value);
         Raylib.ClearBackground(Raylib.LIGHTGRAY);
-        Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth() + RightPanelStart, Raylib.GetScreenHeight() - 250,
-            Raylib.GRAY);
-        Raylib.DrawRectangle(margin, margin, Raylib.GetScreenWidth() + RightPanelStart - 2 * margin,
-            Raylib.GetScreenHeight() - 250 - 2 * margin, Raylib.LIGHTGRAY);
+        Raylib.BeginMode3D(robotCamera);
+
+        Raylib.DrawGrid(10, 1.0f);
+
+        Raylib.DrawCube(new Vector3(0, 0.5f, 0), 1, 1, 1, Raylib.GOLD);
+
+        Raylib.EndMode3D();
+        Raylib.EndTextureMode();
+
+
+        // GUI DRAWING
+
+        Raylib.BeginDrawing();
+
+        Raylib.ClearBackground(Raylib.GRAY);
 
         Raylib.DrawRectangle(Raylib.GetScreenWidth() + RightPanelStart, 0, 250, Raylib.GetScreenHeight(), Raylib.GRAY);
         Raylib.DrawRectangle(Raylib.GetScreenWidth() + RightPanelStart + 10, 10, 230, Raylib.GetScreenHeight() - 20,
@@ -68,6 +91,20 @@ internal class MainView : IView
 
         _time += Raylib.GetFrameTime() * _timeScale;
         if (_time > _timeEnd) _time = _timeStart;
+
+        Raylib.DrawTexture(robotTexture.Value.texture, margin, margin, Raylib.WHITE);
         Raylib.EndDrawing();
+    }
+
+    private void InitializeRobot()
+    {
+        if (robotTexture.HasValue)
+            Raylib.UnloadRenderTexture(robotTexture.Value);
+
+        // Robot render
+        robotTexture = Raylib.LoadRenderTexture(Raylib.GetScreenWidth() + RightPanelStart - 2 * margin,
+            Raylib.GetScreenHeight() - 250 - 2 * margin);
+        robotCamera = new Camera3D(new Vector3(5, 5, 5), Vector3.Zero, -Vector3.UnitY, 45f,
+            CameraProjection.CAMERA_PERSPECTIVE);
     }
 }

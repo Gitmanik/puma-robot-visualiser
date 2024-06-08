@@ -31,6 +31,9 @@ internal class MainView : IView
     private float _minTimeScale = 0, _maxTimeScale = 5;
     private bool _timeStopped = false;
 
+    private Model p1, p2, p3, p4, p5, p6;
+    private Vector3 modelScale = new Vector3(0.1f, 0.1f, 0.1f);
+
     public MainView()
     {
         _timeline = new Timeline(new Rectangle(0, -250, -250, 250), Raylib.GRAY, Raylib.LIGHTGRAY, Raylib.DARKGRAY,
@@ -107,7 +110,7 @@ internal class MainView : IView
 
         //Raylib.DrawCube(new Vector3(0, 0.5f, 0), 1, 1, 1, Raylib.GOLD);
         
-        InitializeModel();
+        DrawRobot();
         
         Raylib.EndMode3D();
         Raylib.EndTextureMode();
@@ -160,57 +163,35 @@ internal class MainView : IView
             Raylib.GetScreenHeight() - 250 - 2 * margin);
         robotCamera = new Camera3D(new Vector3(200, 200, 200), Vector3.Zero, -Vector3.UnitY, 45f,
             CameraProjection.CAMERA_PERSPECTIVE);
-    }
-    private void InitializeModel()
-    {
-        //loading .obj files
-        Model p1 = Raylib.LoadModel("resources\\no_Part1.obj");
-        Model p2 = Raylib.LoadModel("resources\\no_Part2.obj");
-        Model p3 = Raylib.LoadModel("resources\\no_Part3.obj");
-        Model p4 = Raylib.LoadModel("resources\\no_Part4.obj");
-        Model p5 = Raylib.LoadModel("resources\\no_Part5.obj");
-        Model p6 = Raylib.LoadModel("resources\\no_Part6.obj");
-
         
-
-            //rotating
-            rotate1(p2, p3, p4, p5, p6);
-
-            //drawing 
-            Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.BLACK);
-            Raylib.DrawModelEx(p2, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.GREEN);
-            Raylib.DrawModelEx(p3, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.BLACK);
-            Raylib.DrawModelEx(p4, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.GREEN);
-            Raylib.DrawModelEx(p5, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.BLACK);
-            Raylib.DrawModelEx(p6, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, new Vector3(0.1f, 0.1f, 0.1f), Raylib.GREEN);
-
-
-        /* old model (xy!=0)
-        Model part1 = Raylib.LoadModel("resources\\Part1.obj");
-        Raylib.DrawModel(part1, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.BLACK);
-
-        Model part2 = Raylib.LoadModel("resources\\Part2.obj");
-        Raylib.DrawModel(part2, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.GREEN);
-
-        Model part3 = Raylib.LoadModel("resources\\Part3.obj");
-        Raylib.DrawModel(part3, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.BLACK);
-
-        Model part4 = Raylib.LoadModel("resources\\Part4.obj");
-        Raylib.DrawModel(part4, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.GREEN);
-
-        Model part5 = Raylib.LoadModel("resources\\Part5.obj");
-        Raylib.DrawModel(part5, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.BLACK);
-
-        Model part6 = Raylib.LoadModel("resources\\Part6.obj");
-        Raylib.DrawModel(part6, new Vector3(0.56025f, 0, -0.142875f), 0.0025f, Raylib.GREEN);
-        */
+        //loading .obj files
+        p1 = Raylib.LoadModel("resources\\no_Part1.obj");
+        p2 = Raylib.LoadModel("resources\\no_Part2.obj");
+        p3 = Raylib.LoadModel("resources\\no_Part3.obj");
+        p4 = Raylib.LoadModel("resources\\no_Part4.obj");
+        p5 = Raylib.LoadModel("resources\\no_Part5.obj");
+        p6 = Raylib.LoadModel("resources\\no_Part6.obj");
     }
-    private void rotate1(Model p2, Model p3, Model p4, Model p5, Model p6)
+    private void DrawRobot()
     {
-        float yaw = 0.0f;
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) yaw -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) yaw += 1.0f;
+        //rotating
+        rotate1();
 
+        //drawing 
+        Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
+        Raylib.DrawModelEx(p2, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.GREEN);
+        Raylib.DrawModelEx(p3, new Vector3(0, 0, 0), new Vector3(0, 0,0), 0f, modelScale, Raylib.BLACK);
+        Raylib.DrawModelEx(p4, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.GREEN);
+        Raylib.DrawModelEx(p5, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
+        Raylib.DrawModelEx(p6, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.GREEN);
+    }
+    
+    float yaw = 0.0f;
+    private void rotate1()
+    {
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) yaw -= 10.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) yaw += 10.0f;
+        
         //axis rotation points
         p2.transform = RayMath.MatrixTranslate(0, 0, 0);
         p3.transform = RayMath.MatrixTranslate(0, 0, 0);
@@ -219,10 +200,10 @@ internal class MainView : IView
         p6.transform = RayMath.MatrixTranslate(0, 0, 0);
 
         p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
+        p3.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
+        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
+        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
+        p6.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
 
     }
 }

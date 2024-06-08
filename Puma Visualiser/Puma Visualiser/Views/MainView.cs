@@ -175,7 +175,7 @@ internal class MainView : IView
     private void DrawRobot()
     {
         //rotating
-        rotate1();
+        rotate();
 
         //drawing 
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
@@ -185,25 +185,27 @@ internal class MainView : IView
         Raylib.DrawModelEx(p5, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
         Raylib.DrawModelEx(p6, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.GREEN);
     }
-    
-    float yaw = 0.0f;
-    private void rotate1()
+
+    private float yaw = 0.0f, yaw2 = 0.0f;
+    private void rotate()
     {
         if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) yaw -= 10.0f;
         else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) yaw += 10.0f;
         
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) yaw2 -= 10.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X)) yaw2 += 10.0f;
+        
         //axis rotation points
-        p2.transform = RayMath.MatrixTranslate(0, 0, 0);
         p3.transform = RayMath.MatrixTranslate(0, 0, 0);
         p4.transform = RayMath.MatrixTranslate(0, 0, 0);
         p5.transform = RayMath.MatrixTranslate(0, 0, 0);
         p6.transform = RayMath.MatrixTranslate(0, 0, 0);
 
         p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p3.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
-        p6.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, 0f));
+        p3.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, RayMath.DEG2RAD * yaw2));
+        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, RayMath.DEG2RAD * yaw2));
+        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, RayMath.DEG2RAD * yaw2));
+        p6.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * yaw, RayMath.DEG2RAD * yaw2));
 
     }
 }

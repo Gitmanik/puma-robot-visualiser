@@ -12,4 +12,31 @@
         <PackageReference Include="Raylib-CsLo" Version="4.2.0.9"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="resources\no_Part1.obj" />
+      <Content Include="resources\no_Part1.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\no_Part2.obj" />
+      <Content Include="resources\no_Part2.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\no_Part3.obj" />
+      <Content Include="resources\no_Part3.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\no_Part4.obj" />
+      <Content Include="resources\no_Part4.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\no_Part5.obj" />
+      <Content Include="resources\no_Part5.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\no_Part6.obj" />
+      <Content Include="resources\no_Part6.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

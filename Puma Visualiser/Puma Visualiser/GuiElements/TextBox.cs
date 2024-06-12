@@ -4,13 +4,13 @@ namespace Puma_Visualiser.GuiElements;
 
 public class TextBox : GuiElement
 {
-    private string _text;
+    public string Text { get; set; }
     private int _textSize;
     private bool _active;
 
     public TextBox(Rectangle bounds, int textSize, string text = "") : base(bounds)
     {
-        _text = text;
+        Text = text;
         _textSize = textSize;
     }
 
@@ -34,17 +34,18 @@ public class TextBox : GuiElement
             int key = Raylib.GetKeyPressed();
             if (cha != 0)
             {
-                _text += cha;
+                Text += cha;
             }
             else if (key != 0)
             {
                 if (key == 259)
                 {
-                    _text = _text.Remove(_text.Length - 1);
+                    if (Text.Length > 1)
+                        Text = Text.Remove(Text.Length - 1);
                 }
             }
         }
 
-        RayGui.GuiTextBox(Bounds, _text, _textSize, _active);
+        RayGui.GuiTextBox(Bounds, Text, _textSize, _active);
     }
 }

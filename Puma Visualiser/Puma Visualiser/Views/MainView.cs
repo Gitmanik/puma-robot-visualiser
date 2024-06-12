@@ -178,7 +178,7 @@ internal class MainView : IView
 
     private void DrawRobot()
     {
-        /*
+        /*chcialem przerobic kod  na ladniejszy ale nie pyklo
 
         float pos03x = 41.917f * c1 * c2 - 12.92f * s1;
         float pos03y = 41.917f * s1 * c2 + 12.92f * c1;
@@ -199,11 +199,7 @@ internal class MainView : IView
         Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
         Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y);
 */
-        /* prawie git
-        float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-       */
+
         //translation of DH position
 
         float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * theta1);
@@ -214,20 +210,21 @@ internal class MainView : IView
         float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         
-        float pos7x = pos03x + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos7y = pos03y + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos7z = pos03z + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7x = pos06x + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7y = pos06y + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7z = pos06z + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
        
-        float pos07x = pos7x - 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Sin(RayMath.DEG2RAD * theta1);
+        float pos07x = pos7x + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Sin(RayMath.DEG2RAD * theta1);
         float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) - MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Cos(RayMath.DEG2RAD * theta1);
         float pos07z = pos7z + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3));
         
         Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
         Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
-        Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y);
+        Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y); // wspolrzedne koncowki do obrotu bryla przenoszona 
+        
         //rotating
         rotate();
-        //Vector3 endPoint = CalculateEffectorEndPoint(pos06, theta1, theta2, theta3, theta4, theta5);
+        
 
         //drawing 
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
@@ -236,30 +233,65 @@ internal class MainView : IView
         Raylib.DrawModelEx(p4, pos03, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
         Raylib.DrawModelEx(p5, pos06, new Vector3(0, 1, 0), -90f, modelScale, Raylib.BLACK);
         Raylib.DrawModelEx(p6, pos06, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
-        Raylib.DrawModelEx(p7, pos07, new Vector3(0, 1, 0), 90f, new Vector3(10, 10, 10), Raylib.GREEN);
-        //Raylib.DrawCube(pos07, 3, 3, 3, Raylib.PINK);
+        Raylib.DrawModelEx(p7, pos07, new Vector3(0, 1, 0), 90f, new Vector3(5, 5, 5), Raylib.GREEN); //bryla do poprawnego ustawienia obrotu bryly przenoszonej
     }
 
     
     private void rotate()
     {
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) theta1 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) theta1 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+            if (theta1 >= -90)
+                theta1 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            if (theta1 <= 150)
+                theta1 += 1f;
+            else;
         
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) theta2 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X)) theta2 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z))
+            if (theta2 >= -85)
+                theta2 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
+            if (theta2 <= 120)
+                theta2 += 1f;
+            else;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_C)) theta3 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_V)) theta3 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_C))
+            if (theta3 >= -30)
+                theta3 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_V))
+            if (theta3 <= 210)
+                theta3 += 1f;
+            else;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) theta4 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_F)) theta4 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) 
+            if (theta4 >= -45)
+                theta4 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_F))
+            if (theta4 <= 45)
+                theta4 += 1f;
+            else;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_B)) theta5 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_N)) theta5 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_B))
+            if (theta5 >= -45)
+                theta5 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_N))
+            if (theta5 <= 45)
+                theta5 += 1f;
+            else;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_G)) theta6 -= 1.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_H)) theta6 += 1.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_G))
+            if (theta6 >= -150)
+                theta6 -= 1.0f;
+            else;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_H))
+            if (theta6 <= 150)
+                theta6 += 1f;
+            else;
 
         //axis rotation points
         /*p3.transform = RayMath.MatrixTranslate(0, 0, 0);

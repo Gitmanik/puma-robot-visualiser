@@ -31,7 +31,7 @@ internal class MainView : IView
     private float _minTimeScale = 0, _maxTimeScale = 5;
     private bool _timeStopped = false;
 
-    private Model p1, p2, p3, p4, p5, p6;
+    private Model p1, p2, p3, p4, p5, p6, p7;
     private Vector3 modelScale = new Vector3(1f, 1f, 1f);
 
     public MainView()
@@ -171,31 +171,63 @@ internal class MainView : IView
         p4 = Raylib.LoadModel("resources\\p3.obj");
         p5 = Raylib.LoadModel("resources\\p4.obj");
         p6 = Raylib.LoadModel("resources\\p5.obj");
+        p7 = Raylib.LoadModel("resources\\kostka.obj");
     }
 
     private float theta1 = 0.0f, theta2 = 0.0f, theta3 = 0.0f, theta4 = 0.0f, theta5 = 0.0f, theta6 = 0.0f;
+
     private void DrawRobot()
     {
+        /*
 
-        //translation of DH position
- 
-        float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * theta1);
-        float pos03y = 41.917f * MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) + 12.92f * MathF.Cos(RayMath.DEG2RAD * theta1);
-        float pos03z = 61.722f + 41.917f * MathF.Sin(RayMath.DEG2RAD * theta2);
+        float pos03x = 41.917f * c1 * c2 - 12.92f * s1;
+        float pos03y = 41.917f * s1 * c2 + 12.92f * c1;
+        float pos03z = 61.722f + 41.917f * s2;
 
-               /* prawie git
+        float pos06x = pos03x + 43.215f * (c1 * c2 * s3 + c1 * s2 * c3);
+        float pos06y = pos03y + 43.215f * (s1 * c2 * s3 + s1 * s2 * c3);
+        float pos06z = pos03z + 43.215f * (s2 * s3 - c2 * c3);
+
+        float pos7x = pos03x + (43.215f + c5 * 5.334f) * (c1 * c2 * s3 + c1 * s2 * c3);
+        float pos7y = pos03y + (43.215f + c5 * 5.334f) * (s1 * c2 * s3 + s1 * s2 * c3);
+        float pos7z = pos03z + (43.215f + c5 * 5.334f) * (s2 * s3 - c2 * c3);
+
+        float pos07x = pos7x - 5.334f * c4 * s5 * (c1 * c2 * c3 - c1 * s2 * s3) - 5.334f * s4 * s5 * s1;
+        float pos07y = pos7y + 5.334f * c4 * s5 * (s1 * c2 * c3 - s1 * s2 * s3) + 5.334f * s4 * s5 * c1;
+        float pos07z = pos7z - 5.334f * c4 * s5 * (s2 * c3 - c2 * s3);
+        Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
+        Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
+        Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y);
+*/
+        /* prawie git
         float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
        */
+        //translation of DH position
+
+        float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * theta1);
+        float pos03y = 41.917f * MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) + 12.92f * MathF.Cos(RayMath.DEG2RAD * theta1);
+        float pos03z = 61.722f + 41.917f * MathF.Sin(RayMath.DEG2RAD * theta2);
 
         float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        
+        float pos7x = pos03x + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7y = pos03y + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7z = pos03z + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+       
+        float pos07x = pos7x - 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Sin(RayMath.DEG2RAD * theta1);
+        float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Cos(RayMath.DEG2RAD * theta1);
+        float pos07z = pos7z + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3));
+        
         Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
         Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
+        Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y);
         //rotating
         rotate();
+        Vector3 endPoint = CalculateEffectorEndPoint(pos06, theta1, theta2, theta3, theta4, theta5);
 
         //drawing 
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
@@ -204,6 +236,8 @@ internal class MainView : IView
         Raylib.DrawModelEx(p4, pos03, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
         Raylib.DrawModelEx(p5, pos06, new Vector3(0, 1, 0), -90f, modelScale, Raylib.BLACK);
         Raylib.DrawModelEx(p6, pos06, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
+        Raylib.DrawModelEx(p7, pos07, new Vector3(0, 1, 0), 90f, new Vector3(10, 10, 10), Raylib.GREEN);
+        //Raylib.DrawCube(pos07, 3, 3, 3, Raylib.PINK);
     }
 
     
@@ -241,19 +275,23 @@ internal class MainView : IView
 
         Matrix4x4 p5previousTransform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
         Matrix4x4 p5localTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta4);
-
         p5.transform = RayMath.MatrixMultiply(p5previousTransform, p5localTransform);
 
         Matrix4x4 p6previousTransform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
-        Matrix4x4 p6additionalTransform = RayMath.MatrixRotateX(RayMath.DEG2RAD * theta6);
+        Matrix4x4 p6additionalTransform = RayMath.MatrixRotateX(RayMath.DEG2RAD * theta5);
         Matrix4x4 p6LocalTransform = RayMath.MatrixMultiply(p5localTransform, p6additionalTransform);
         p6.transform = RayMath.MatrixMultiply(p6previousTransform, p6LocalTransform);
+
+        //obracanie chwyconym prfzedmiotem
+        Matrix4x4 p7additionalTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta6);
+        Matrix4x4 p7LocalTransform = RayMath.MatrixMultiply(p6LocalTransform, p7additionalTransform);
+        p7.transform = RayMath.MatrixMultiply(p6previousTransform, p7LocalTransform);
 
         //p6.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 + RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
         //if(isitemgrabbed(true)) item.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4RayMath.DEG2RAD * theta6, 0f));
 
 
     }
-
+    
 
 }

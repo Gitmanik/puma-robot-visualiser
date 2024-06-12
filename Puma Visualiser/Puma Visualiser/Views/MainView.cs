@@ -235,6 +235,10 @@ internal class MainView : IView
         Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
         Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
         Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y); // wspolrzedne koncowki do obrotu bryla przenoszona 
+
+        _currentXTextBox.Text = "" + pos06x;
+        _currentYTextBox.Text = "" + pos06y;
+        _currentZTextBox.Text = "" + pos06z;
         
         //rotating
         RotateRobot();

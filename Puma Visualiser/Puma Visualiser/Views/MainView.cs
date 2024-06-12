@@ -32,7 +32,7 @@ internal class MainView : IView
     private float _minTimeScale = 0, _maxTimeScale = 5;
     private bool _timeStopped = false;
 
-    private Model p1, p2, p3, p4, p5, p6, p7;
+    private Model p1, p2, p3, p4, p5, p6, cubeModel;
     private Texture p1t, p2t, p3t, p4t, p5t, p6t;
     private Vector3 modelScale = new Vector3(1f, 1f, 1f);
 
@@ -137,9 +137,8 @@ internal class MainView : IView
         Raylib.BeginMode3D(robotCamera);
 
         Raylib.DrawGrid(250, 10f);
-
-        //Raylib.DrawCube(new Vector3(0, 0.5f, 0), 1, 1, 1, Raylib.GOLD);
         
+        ManualControl();
         DrawRobot();
         
         Raylib.EndMode3D();
@@ -200,7 +199,7 @@ internal class MainView : IView
         p4 = Raylib.LoadModel("resources\\p3.obj");
         p5 = Raylib.LoadModel("resources\\p4.obj");
         p6 = Raylib.LoadModel("resources\\p5.obj");
-        p7 = Raylib.LoadModel("resources\\kostka.obj");
+        cubeModel = Raylib.LoadModel("resources\\kostka.obj");
         
         p1t = Raylib.LoadTexture("resources\\p1.png");
         Raylib.SetTextureWrap(p1t, TextureWrap.TEXTURE_WRAP_CLAMP);
@@ -248,66 +247,12 @@ internal class MainView : IView
         Raylib.DrawModelEx(p4, pos03, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
         Raylib.DrawModelEx(p5, pos06, new Vector3(0, 1, 0), -90f, modelScale, Raylib.BLACK);
         Raylib.DrawModelEx(p6, pos06, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
-        Raylib.DrawModelEx(p7, pos07, new Vector3(0, 1, 0), 90f, new Vector3(5, 5, 5), Raylib.GREEN); //bryla do poprawnego ustawienia obrotu bryly przenoszonej
+        Raylib.DrawModelEx(cubeModel, pos07, new Vector3(0, 1, 0), 90f, new Vector3(5, 5, 5), Raylib.GREEN); //bryla do poprawnego ustawienia obrotu bryly przenoszonej
     }
 
     
     private void rotate()
     {
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            if (theta1 >= -90)
-                theta1 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            if (theta1 <= 150)
-                theta1 += 1f;
-            else;
-        
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z))
-            if (theta2 >= -85)
-                theta2 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
-            if (theta2 <= 120)
-                theta2 += 1f;
-            else;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_C))
-            if (theta3 >= -30)
-                theta3 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_V))
-            if (theta3 <= 210)
-                theta3 += 1f;
-            else;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) 
-            if (theta4 >= -45)
-                theta4 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_F))
-            if (theta4 <= 45)
-                theta4 += 1f;
-            else;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_B))
-            if (theta5 >= -45)
-                theta5 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_N))
-            if (theta5 <= 45)
-                theta5 += 1f;
-            else;
-
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_G))
-            if (theta6 >= -150)
-                theta6 -= 1.0f;
-            else;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_H))
-            if (theta6 <= 150)
-                theta6 += 1f;
-            else;
-        
         p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * theta1, 0f));
         p3.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2, RayMath.DEG2RAD * theta1, 0f));
         p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
@@ -324,8 +269,47 @@ internal class MainView : IView
         //obracanie chwyconym prfzedmiotem
         Matrix4x4 p7additionalTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta6);
         Matrix4x4 p7LocalTransform = RayMath.MatrixMultiply(p6LocalTransform, p7additionalTransform);
-        p7.transform = RayMath.MatrixMultiply(p6previousTransform, p7LocalTransform);
+        cubeModel.transform = RayMath.MatrixMultiply(p6previousTransform, p7LocalTransform);
     }
     
+    private void ManualControl()
+    {
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
+            theta1 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            theta1 += _timeScale;
 
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z))
+            theta2 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
+            theta2 += _timeScale;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_C))
+            theta3 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_V))
+            theta3 += _timeScale;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+            theta4 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_F))
+            theta4 += _timeScale;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_B))
+            theta5 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_N))
+            theta5 += _timeScale;
+
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_G))
+            theta6 -= _timeScale;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_H))
+            theta6 += _timeScale;
+        
+        
+        theta1 = Math.Clamp(theta1, -90, 150);
+        theta2 = Math.Clamp(theta2, -85, 120);
+        theta3 = Math.Clamp(theta3, -30, 120);
+        theta4 = Math.Clamp(theta4, -45, 45);
+        theta5 = Math.Clamp(theta5, -45, 45);
+        theta6 = Math.Clamp(theta6, -150, 150);
+    }
 }

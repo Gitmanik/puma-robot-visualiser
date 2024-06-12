@@ -176,6 +176,7 @@ internal class MainView : IView
     private float theta1 = 0.0f, theta2 = 0.0f, theta3 = 0.0f, theta4 = 0.0f, theta5 = 0.0f, theta6 = 0.0f;
     private void DrawRobot()
     {
+
         //translation of DH position
  
         float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * theta1);
@@ -191,7 +192,8 @@ internal class MainView : IView
         float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
         float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-
+        Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
+        Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
         //rotating
         rotate();
 
@@ -199,9 +201,9 @@ internal class MainView : IView
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
         Raylib.DrawModelEx(p2, new Vector3(0, 61.722f, 0), new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
         Raylib.DrawModelEx(p3, new Vector3(0, 61.722f, 0), new Vector3(0, 1, 0), 90f, modelScale, Raylib.BLACK);
-        Raylib.DrawModelEx(p4, new Vector3(pos03x, pos03z, pos03y), new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
-        Raylib.DrawModelEx(p5, new Vector3(pos06x, pos06z, pos06y), new Vector3(0, 1, 0), 90f, modelScale, Raylib.BLACK);
-        Raylib.DrawModelEx(p6, new Vector3(pos06x, pos06z, pos06y), new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
+        Raylib.DrawModelEx(p4, pos03, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
+        Raylib.DrawModelEx(p5, pos06, new Vector3(0, 1, 0), -90f, modelScale, Raylib.BLACK);
+        Raylib.DrawModelEx(p6, pos06, new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
     }
 
     
@@ -233,8 +235,8 @@ internal class MainView : IView
 
         p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * theta1, 0f));
         p3.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2, RayMath.DEG2RAD * theta1, 0f));
-        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 , RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta3, 0f));
-        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
+        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
+        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
         p6.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 + RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
         //if(isitemgrabbed(true)) item.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4RayMath.DEG2RAD * theta6, 0f));
 

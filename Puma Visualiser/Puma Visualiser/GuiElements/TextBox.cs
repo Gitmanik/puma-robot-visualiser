@@ -40,7 +40,7 @@ public class TextBox : GuiElement
             {
                 if (key == 259)
                 {
-                    if (Text.Length > 1)
+                    if (Text.Length > 0)
                         Text = Text.Remove(Text.Length - 1);
                 }
             }

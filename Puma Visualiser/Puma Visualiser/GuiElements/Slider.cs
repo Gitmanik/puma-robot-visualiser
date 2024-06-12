@@ -29,7 +29,7 @@ public class Slider : GuiElement
         _maxTextWidth = Raylib.MeasureText(_maxText, defaultFontSize);
     }
 
-    public void Draw()
+    public override void Draw()
     {
         base.Draw();
         

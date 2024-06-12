@@ -219,7 +219,7 @@ internal class MainView : IView
         float pos7z = pos03z + (43.215f + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
        
         float pos07x = pos7x - 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Sin(RayMath.DEG2RAD * theta1);
-        float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Cos(RayMath.DEG2RAD * theta1);
+        float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) - MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Cos(RayMath.DEG2RAD * theta1);
         float pos07z = pos7z + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3));
         
         Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
@@ -227,7 +227,7 @@ internal class MainView : IView
         Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y);
         //rotating
         rotate();
-        Vector3 endPoint = CalculateEffectorEndPoint(pos06, theta1, theta2, theta3, theta4, theta5);
+        //Vector3 endPoint = CalculateEffectorEndPoint(pos06, theta1, theta2, theta3, theta4, theta5);
 
         //drawing 
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.BLACK);
@@ -243,23 +243,23 @@ internal class MainView : IView
     
     private void rotate()
     {
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) theta1 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) theta1 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) theta1 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) theta1 += 1.0f;
         
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) theta2 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X)) theta2 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_Z)) theta2 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_X)) theta2 += 1.0f;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_C)) theta3 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_V)) theta3 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_C)) theta3 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_V)) theta3 += 1.0f;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) theta4 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_F)) theta4 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) theta4 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_F)) theta4 += 1.0f;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_B)) theta5 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_N)) theta5 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_B)) theta5 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_N)) theta5 += 1.0f;
 
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_G)) theta6 -= 10.0f;
-        else if (Raylib.IsKeyDown(KeyboardKey.KEY_H)) theta6 += 10.0f;
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_G)) theta6 -= 1.0f;
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_H)) theta6 += 1.0f;
 
         //axis rotation points
         /*p3.transform = RayMath.MatrixTranslate(0, 0, 0);

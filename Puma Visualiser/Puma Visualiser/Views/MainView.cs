@@ -139,6 +139,23 @@ internal class MainView : IView
         Raylib.DrawGrid(250, 10f);
         
         ManualControl();
+
+        float xTarget = 0, yTarget = 0, zTarget = 0;
+        if (!string.IsNullOrWhiteSpace(_targetXTextBox.Text))
+        {
+            float.TryParse(_targetXTextBox.Text, out xTarget);
+        }        
+        if (!string.IsNullOrWhiteSpace(_targetYTextBox.Text))
+        {
+            float.TryParse(_targetYTextBox.Text, out yTarget);
+        }        
+        if (!string.IsNullOrWhiteSpace(_targetZTextBox.Text))
+        {
+            float.TryParse(_targetZTextBox.Text, out zTarget);
+        }
+
+        Raylib.DrawCube(new Vector3(xTarget, yTarget, zTarget), 10,10,10, Raylib.GOLD);
+        
         DrawRobot();
         
         Raylib.EndMode3D();

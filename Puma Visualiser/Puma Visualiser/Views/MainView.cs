@@ -182,6 +182,8 @@ internal class MainView : IView
             _time += Raylib.GetFrameTime() * _timeScale;
         if (_time > _timeEnd) _time = _timeStart;
         
+        _currentTimeTextBox.Text = _time.ToString("0.00");
+        
         // GUI DRAWING
 
         Raylib.BeginDrawing();

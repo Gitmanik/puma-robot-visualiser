@@ -6,6 +6,7 @@
         <RootNamespace>Puma_Visualiser</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,28 +15,73 @@
 
     <ItemGroup>
       <None Remove="resources\no_Part1.obj" />
-      <Content Include="resources\no_Part1.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="resources\no_Part2.obj" />
-      <Content Include="resources\no_Part2.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="resources\no_Part3.obj" />
-      <Content Include="resources\no_Part3.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="resources\no_Part4.obj" />
-      <Content Include="resources\no_Part4.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="resources\no_Part5.obj" />
-      <Content Include="resources\no_Part5.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <None Remove="resources\no_Part6.obj" />
-      <Content Include="resources\no_Part6.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="resources\p2.obj" />
+      <Content Include="resources\p2.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p3.mtl" />
+      <Content Include="resources\p3.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p3.obj" />
+      <Content Include="resources\p3.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p4.mtl" />
+      <Content Include="resources\p4.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p4.obj" />
+      <Content Include="resources\p4.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p5.mtl" />
+      <Content Include="resources\p5.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p5.obj" />
+      <Content Include="resources\p5.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p2.mtl" />
+      <Content Include="resources\p2.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p1.png" />
+      <Content Include="resources\p1.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\kostka.mtl" />
+      <Content Include="resources\kostka.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\kostka.obj" />
+      <Content Include="resources\kostka.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p0.mtl" />
+      <Content Include="resources\p0.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p0.obj" />
+      <Content Include="resources\p0.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p1.mtl" />
+      <Content Include="resources\p1.mtl">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="resources\p1.obj" />
+      <Content Include="resources\p1.obj">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>
 

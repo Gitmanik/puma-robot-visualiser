@@ -154,6 +154,8 @@ internal class MainView : IView
             float.TryParse(_targetZTextBox.Text, out zTarget);
         }
 
+        // SolveIK(xTarget, yTarget, zTarget, out _theta1, out _theta2, out _theta3);
+        
         Raylib.DrawCube(new Vector3(xTarget, yTarget, zTarget), 10,10,10, Raylib.GOLD);
         
         DrawRobot();
@@ -229,7 +231,59 @@ internal class MainView : IView
 
     private float _theta1 = 0.0f, _theta2 = 0.0f, _theta3 = 0.0f, _theta4 = 0.0f, _theta5 = 0.0f, _theta6 = 0.0f;
     private bool _cubeGrabbed = true;
+    
+    public bool SolveIK(float xTarget, float yTarget, float zTarget, out float theta1, out float theta2, out float theta3)
+    {
+        // Initial guess
+        theta1 = 0;
+        theta2 = 0;
+        theta3 = 0;
 
+        float L1 = 61.722f;
+        float L2 = 41.917f;
+        float L3 = 43.215f;
+        
+        
+        const double tolerance = 1e-6;
+        const int maxIterations = 1000;
+
+        for (int i = 0; i < maxIterations; i++)
+        {
+            double x = L1 * Math.Cos(theta1) + L2 * Math.Cos(theta1 + theta2) + L3 * Math.Cos(theta1 + theta2 + theta3);
+            double y = L1 * Math.Sin(theta1) + L2 * Math.Sin(theta1 + theta2) + L3 * Math.Sin(theta1 + theta2 + theta3);
+
+            double errorX = xTarget - x;
+            double errorY = yTarget - y;
+
+            if (Math.Sqrt(errorX * errorX + errorY * errorY) < tolerance)
+            {
+                return true;
+            }
+
+            // Jacobian transpose method (simplified)
+            double dTheta1 = -errorX * (-L1 * Math.Sin(theta1) - L2 * Math.Sin(theta1 + theta2) - L3 * Math.Sin(theta1 + theta2 + theta3)) +
+                             errorY * (L1 * Math.Cos(theta1) + L2 * Math.Cos(theta1 + theta2) + L3 * Math.Cos(theta1 + theta2 + theta3));
+
+            double dTheta2 = -errorX * (-L2 * Math.Sin(theta1 + theta2) - L3 * Math.Sin(theta1 + theta2 + theta3)) +
+                             errorY * (L2 * Math.Cos(theta1 + theta2) + L3 * Math.Cos(theta1 + theta2 + theta3));
+
+            double dTheta3 = -errorX * (-L3 * Math.Sin(theta1 + theta2 + theta3)) +
+                             errorY * (L3 * Math.Cos(theta1 + theta2 + theta3));
+
+            // Update the angles
+            theta1 += 0.01f * (float) dTheta1;
+            theta2 += 0.01f * (float) dTheta2;
+            theta3 += 0.01f * (float) dTheta3;
+
+            // Apply constraints (example)
+            theta1 = Math.Clamp(theta1, -90, 150);
+            theta2 = Math.Clamp(theta2, -85, 120);
+            theta3 = Math.Clamp(theta3, -30, 120);
+        }
+
+        return false; // Did not converge
+    }
+    
     private void DrawRobot()
     {
         //translation of DH position

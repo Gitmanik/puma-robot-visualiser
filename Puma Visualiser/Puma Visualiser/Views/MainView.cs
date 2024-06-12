@@ -210,37 +210,35 @@ internal class MainView : IView
         }
     }
 
-    private float theta1 = 0.0f, theta2 = 0.0f, theta3 = 0.0f, theta4 = 0.0f, theta5 = 0.0f, theta6 = 0.0f;
+    private float _theta1 = 0.0f, _theta2 = 0.0f, _theta3 = 0.0f, _theta4 = 0.0f, _theta5 = 0.0f, _theta6 = 0.0f;
+    private bool _cubeGrabbed = true;
 
     private void DrawRobot()
     {
         //translation of DH position
+        float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * _theta1);
+        float pos03y = 41.917f * MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) + 12.92f * MathF.Cos(RayMath.DEG2RAD * _theta1);
+        float pos03z = 61.722f + 41.917f * MathF.Sin(RayMath.DEG2RAD * _theta2);
 
-        float pos03x = 41.917f * MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) - 12.92f * MathF.Sin(RayMath.DEG2RAD * theta1);
-        float pos03y = 41.917f * MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) + 12.92f * MathF.Cos(RayMath.DEG2RAD * theta1);
-        float pos03z = 61.722f + 41.917f * MathF.Sin(RayMath.DEG2RAD * theta2);
-
-        float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos06x = pos03x + 43.215f * (MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) + MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
+        float pos06y = pos03y + 43.215f * (MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) + MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
+        float pos06z = pos03z + 43.215f * (MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) - MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
         
-        float pos7x = pos06x + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos7y = pos06y + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) + MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
-        float pos7z = pos06z + MathF.Cos(RayMath.DEG2RAD * theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3) - MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3));
+        float pos7x = pos06x + MathF.Cos(RayMath.DEG2RAD * _theta5) * 5.334f * (MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) + MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
+        float pos7y = pos06y + MathF.Cos(RayMath.DEG2RAD * _theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) + MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
+        float pos7z = pos06z + MathF.Cos(RayMath.DEG2RAD * _theta5) * 5.334f * (MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3) - MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3));
        
-        float pos07x = pos7x + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Sin(RayMath.DEG2RAD * theta1);
-        float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) - MathF.Sin(RayMath.DEG2RAD * theta1) * MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * MathF.Cos(RayMath.DEG2RAD * theta1);
-        float pos07z = pos7z + 5.334f * MathF.Cos(RayMath.DEG2RAD * theta4) * MathF.Sin(RayMath.DEG2RAD * theta5) * (MathF.Sin(RayMath.DEG2RAD * theta2) * MathF.Cos(RayMath.DEG2RAD * theta3) + MathF.Cos(RayMath.DEG2RAD * theta2) * MathF.Sin(RayMath.DEG2RAD * theta3));
+        float pos07x = pos7x + 5.334f * MathF.Cos(RayMath.DEG2RAD * _theta4) * MathF.Sin(RayMath.DEG2RAD * _theta5) * (MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3) + MathF.Cos(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3)) - 5.334f * MathF.Sin(RayMath.DEG2RAD * _theta4) * MathF.Sin(RayMath.DEG2RAD * _theta5) * MathF.Sin(RayMath.DEG2RAD * _theta1);
+        float pos07y = pos7y + 5.334f * MathF.Cos(RayMath.DEG2RAD * _theta4) * MathF.Sin(RayMath.DEG2RAD * _theta5) * (MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3) - MathF.Sin(RayMath.DEG2RAD * _theta1) * MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3)) + 5.334f * MathF.Sin(RayMath.DEG2RAD * _theta4) * MathF.Sin(RayMath.DEG2RAD * _theta5) * MathF.Cos(RayMath.DEG2RAD * _theta1);
+        float pos07z = pos7z + 5.334f * MathF.Cos(RayMath.DEG2RAD * _theta4) * MathF.Sin(RayMath.DEG2RAD * _theta5) * (MathF.Sin(RayMath.DEG2RAD * _theta2) * MathF.Cos(RayMath.DEG2RAD * _theta3) + MathF.Cos(RayMath.DEG2RAD * _theta2) * MathF.Sin(RayMath.DEG2RAD * _theta3));
         
         Vector3 pos03 = new Vector3(pos03x, pos03z, pos03y);
         Vector3 pos06 = new Vector3(pos06x, pos06z, pos06y);
         Vector3 pos07 = new Vector3(pos07x, pos07z, pos07y); // wspolrzedne koncowki do obrotu bryla przenoszona 
         
         //rotating
-        rotate();
-        
+        RotateRobot();
 
-        //drawing 
         Raylib.DrawModelEx(p1, new Vector3(0, 0, 0), new Vector3(0, 0, 0), 0f, modelScale, Raylib.WHITE);
         Raylib.DrawModelEx(p2, new Vector3(0, 61.722f, 0), new Vector3(0, 1, 0), 90f, modelScale, Raylib.GREEN);
         Raylib.DrawModelEx(p3, new Vector3(0, 61.722f, 0), new Vector3(0, 1, 0), 90f, modelScale, Raylib.BLACK);
@@ -251,65 +249,66 @@ internal class MainView : IView
     }
 
     
-    private void rotate()
+    private void RotateRobot()
     {
-        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * theta1, 0f));
-        p3.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2, RayMath.DEG2RAD * theta1, 0f));
-        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
+        p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * _theta1, 0f));
+        p3.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * _theta2, RayMath.DEG2RAD * _theta1, 0f));
+        p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * _theta2 + RayMath.DEG2RAD * _theta3, RayMath.DEG2RAD * _theta1, 0f));
 
-        Matrix4x4 p5previousTransform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
-        Matrix4x4 p5localTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta4);
+        Matrix4x4 p5previousTransform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * _theta2 - RayMath.DEG2RAD * _theta3, RayMath.DEG2RAD * _theta1, 0f));
+        Matrix4x4 p5localTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * _theta4);
         p5.transform = RayMath.MatrixMultiply(p5previousTransform, p5localTransform);
 
-        Matrix4x4 p6previousTransform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
-        Matrix4x4 p6additionalTransform = RayMath.MatrixRotateX(RayMath.DEG2RAD * theta5);
+        Matrix4x4 p6previousTransform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * _theta2 + RayMath.DEG2RAD * _theta3, RayMath.DEG2RAD * _theta1, 0f));
+        Matrix4x4 p6additionalTransform = RayMath.MatrixRotateX(RayMath.DEG2RAD * _theta5);
         Matrix4x4 p6LocalTransform = RayMath.MatrixMultiply(p5localTransform, p6additionalTransform);
         p6.transform = RayMath.MatrixMultiply(p6previousTransform, p6LocalTransform);
 
-        //obracanie chwyconym prfzedmiotem
-        Matrix4x4 p7additionalTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta6);
-        Matrix4x4 p7LocalTransform = RayMath.MatrixMultiply(p6LocalTransform, p7additionalTransform);
-        cubeModel.transform = RayMath.MatrixMultiply(p6previousTransform, p7LocalTransform);
+        if (_cubeGrabbed)
+        {
+            Matrix4x4 p7additionalTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * _theta6);
+            Matrix4x4 p7LocalTransform = RayMath.MatrixMultiply(p6LocalTransform, p7additionalTransform);
+            cubeModel.transform = RayMath.MatrixMultiply(p6previousTransform, p7LocalTransform);
+        }
     }
     
     private void ManualControl()
     {
         if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
-            theta1 -= _timeScale;
+            _theta1 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
-            theta1 += _timeScale;
+            _theta1 += _timeScale;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_Z))
-            theta2 -= _timeScale;
+            _theta2 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
-            theta2 += _timeScale;
+            _theta2 += _timeScale;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_C))
-            theta3 -= _timeScale;
+            _theta3 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_V))
-            theta3 += _timeScale;
+            _theta3 += _timeScale;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
-            theta4 -= _timeScale;
+            _theta4 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_F))
-            theta4 += _timeScale;
+            _theta4 += _timeScale;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_B))
-            theta5 -= _timeScale;
+            _theta5 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_N))
-            theta5 += _timeScale;
+            _theta5 += _timeScale;
 
         if (Raylib.IsKeyDown(KeyboardKey.KEY_G))
-            theta6 -= _timeScale;
+            _theta6 -= _timeScale;
         if (Raylib.IsKeyDown(KeyboardKey.KEY_H))
-            theta6 += _timeScale;
+            _theta6 += _timeScale;
         
-        
-        theta1 = Math.Clamp(theta1, -90, 150);
-        theta2 = Math.Clamp(theta2, -85, 120);
-        theta3 = Math.Clamp(theta3, -30, 120);
-        theta4 = Math.Clamp(theta4, -45, 45);
-        theta5 = Math.Clamp(theta5, -45, 45);
-        theta6 = Math.Clamp(theta6, -150, 150);
+        _theta1 = Math.Clamp(_theta1, -90, 150);
+        _theta2 = Math.Clamp(_theta2, -85, 120);
+        _theta3 = Math.Clamp(_theta3, -30, 120);
+        _theta4 = Math.Clamp(_theta4, -45, 45);
+        _theta5 = Math.Clamp(_theta5, -45, 45);
+        _theta6 = Math.Clamp(_theta6, -150, 150);
     }
 }

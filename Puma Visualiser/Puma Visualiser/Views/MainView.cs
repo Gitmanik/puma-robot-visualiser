@@ -236,10 +236,24 @@ internal class MainView : IView
         p2.transform = RayMath.MatrixRotateXYZ(new Vector3(0f, RayMath.DEG2RAD * theta1, 0f));
         p3.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2, RayMath.DEG2RAD * theta1, 0f));
         p4.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
-        p5.transform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
-        p6.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 + RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
+
+        //p5.transform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
+
+        Matrix4x4 p5previousTransform = RayMath.MatrixRotateXYZ(new Vector3(-RayMath.DEG2RAD * theta2 - RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
+        Matrix4x4 p5localTransform = RayMath.MatrixRotateY(RayMath.DEG2RAD * theta4);
+
+        p5.transform = RayMath.MatrixMultiply(p5previousTransform, p5localTransform);
+
+        Matrix4x4 p6previousTransform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3, RayMath.DEG2RAD * theta1, 0f));
+        Matrix4x4 p6additionalTransform = RayMath.MatrixRotateX(RayMath.DEG2RAD * theta6);
+        Matrix4x4 p6LocalTransform = RayMath.MatrixMultiply(p5localTransform, p6additionalTransform);
+        p6.transform = RayMath.MatrixMultiply(p6previousTransform, p6LocalTransform);
+
+        //p6.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 + RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4, 0f));
         //if(isitemgrabbed(true)) item.transform = RayMath.MatrixRotateXYZ(new Vector3(RayMath.DEG2RAD * theta2 + RayMath.DEG2RAD * theta3 RayMath.DEG2RAD * theta5, RayMath.DEG2RAD * theta1 + RayMath.DEG2RAD * theta4RayMath.DEG2RAD * theta6, 0f));
 
 
     }
+
+
 }

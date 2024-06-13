@@ -4,13 +4,13 @@ namespace Puma_Visualiser.GuiElements;
 
 public class Label : GuiElement
 {
-    private string _text;
+    public string Text { get; set; }
     private Color _color;
     private int _fontSize;
 
     public Label(Rectangle bounds, string text, int fontSize, Color color) : base(bounds)
     {
-        _text = text;
+        Text = text;
         _fontSize = fontSize;
         _color = color;
     }
@@ -18,6 +18,6 @@ public class Label : GuiElement
     public override void Draw()
     {
         base.Draw();
-        Raylib.DrawText(_text, Bounds.x, Bounds.y, _fontSize, _color);
+        Raylib.DrawText(Text, Bounds.x, Bounds.y, _fontSize, _color);
     }
 }

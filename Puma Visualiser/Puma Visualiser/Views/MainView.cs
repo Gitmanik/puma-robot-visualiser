@@ -42,8 +42,7 @@ internal class MainView : IView
     private Vector3 modelScale = new Vector3(1f, 1f, 1f);
 
     private Vector3 _cubePos = new(50, 50, 0);
-    private Matrix4x4 cubeRot = new Matrix4x4();
-
+    
     private enum RobotState
     {
         MANUAL,
@@ -504,7 +503,7 @@ internal class MainView : IView
         //rotating
         RotateRobot();
 
-        Console.WriteLine($"{_cubePos} {pos07}");
+        // Console.WriteLine($"{_cubePos} {pos07}");
 
     if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
         {
@@ -520,7 +519,7 @@ internal class MainView : IView
             }
         }
         
-        Console.WriteLine(_cubeGrabbed);
+        // Console.WriteLine(_cubeGrabbed);
 
         var pos = _cubeGrabbed ? pos07 : _cubePos;
 

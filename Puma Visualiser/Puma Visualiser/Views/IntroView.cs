@@ -9,10 +9,10 @@ internal class IntroView : IView
         Raylib.BeginDrawing();
             
         Raylib.ClearBackground(Raylib.LIGHTGRAY);
-        Raylib.DrawText("PUMA Robot Visualiser", 640 - Raylib.MeasureText("PUMA Robot Visualiser", 50) / 2, 360 - 25 - 10,
+        Raylib.DrawText("PUMA Robot Visualiser", Raylib.GetScreenWidth()/2 - Raylib.MeasureText("PUMA Robot Visualiser", 50) / 2, Raylib.GetScreenHeight()/2 - 25 - 10,
             50, Raylib.RED);
         
-        Raylib.DrawText("Michal Sojka, Pawel Reich", 640 - Raylib.MeasureText("Michal Sojka, Pawel Reich", 30) / 2, 360 - 15 + 25 + 10,
+        Raylib.DrawText("Michal Sojka, Pawel Reich", Raylib.GetScreenWidth()/2 - Raylib.MeasureText("Michal Sojka, Pawel Reich", 30) / 2, Raylib.GetScreenHeight()/2 - 15 + 25 + 10,
             30, Raylib.RED);
 
         if (Raylib.GetTime() > 1)
